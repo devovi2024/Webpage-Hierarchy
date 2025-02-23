@@ -3,30 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tab Switching</title>
+    <title>Tabs Switching with Image Change</title>
     <style>
-        .tab-head { cursor: pointer; padding: 10px; display: inline-block; }
-        .active-tab { background: #007bff; color: white; }
-        .tab-body { display: none; padding: 20px; border: 1px solid #3c2828; }
-        .show-tab { display: block; }
+        .tab-head {
+            cursor: pointer;
+            padding: 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+            background-color: #f4f4f4;
+        }
+
+        .tab-head.active {
+            background-color: #1f1616;
+            color: white;
+        }
+
+        .tab-body {
+            margin-top: 10px;
+            padding: 20px;
+            border: 1px solid #1f1616;
+            display: none;
+        }
+
+        .tab-body.active {
+            display: block;
+        }
+
+        #tabImage {
+            max-width: 100%; 
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Tab Headers -->
     <div id="tabsHead">
-        <div class="tab-head">Tab 1</div>
-        <div class="tab-head">Tab 2</div>
-        <div class="tab-head">Tab 3</div>
+        <div class="tab-head active" data-index="0">Tab 1</div>
+        <div class="tab-head" data-index="1">Tab 2</div>
+        <div class="tab-head" data-index="2">Tab 3</div>
+        <div class="tab-head" data-index="3">Tab 4</div>
     </div>
 
-    <!-- Tab Bodies -->
     <div id="tabsBody">
-        <div class="tab-body">Content for Tab 1</div>
+        <img id="tabImage" src="./src/asstes/Colossus.jpg" alt="Tab Image">
+        
+        <div class="tab-body active">Content for Tab 1</div>
         <div class="tab-body">Content for Tab 2</div>
         <div class="tab-body">Content for Tab 3</div>
+        <div class="tab-body">Content for Tab 4</div>
     </div>
 
-   
+    <script>
+        const tabs = document.querySelectorAll(".tab-head");
+        const contents = document.querySelectorAll(".tab-body");
+        const tabImage = document.getElementById("tabImage");
+        const images = ["./src/asstes/Colossus.jpg", "./src/asstes/thing.jpg", "./src/asstes/oardefault.jpg", "./src/asstes/oardefault.jpg"];
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+                tab.classList.add("active");
+                contents[index].classList.add("active");
+                tabImage.src = images[index];
+            });
+        });
+    </script>
+
 </body>
 </html>
