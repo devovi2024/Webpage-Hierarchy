@@ -5,40 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabs Switching with Image Change</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #tabsHead {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .tab-head {
             cursor: pointer;
-            padding: 10px;
-            display: inline-block;
+            padding: 12px 18px;
             border: 1px solid #ccc;
-            margin-right: 5px;
             background-color: #f4f4f4;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-head:hover {
+            background-color: #ddd;
         }
 
         .tab-head.active {
             background-color: #1f1616;
             color: white;
+            border-color: #1f1616;
         }
 
+
+        #tabImage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #tabsBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+#tabsBody > div {
+    flex: 1;
+    min-width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+#tabImage {
+    width: 100%;
+    max-width: 400px; /* Fixed size */
+    height: 300px; /* Fixed height */
+    object-fit: cover; /* Keeps the aspect ratio */
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tab-body {
+    display: none;
+    padding: 20px;
+    border: 1px solid #1f1616;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-body.active {
+    display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #tabsBody {
+        flex-direction: column;
+    }
+    #tabsBody > div {
+        max-width: 100%;
+    }
+    #tabImage {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
         .tab-body {
-            margin-top: 10px;
+            display: none;
             padding: 20px;
             border: 1px solid #1f1616;
-            display: none;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .tab-body.active {
             display: block;
         }
 
-        #tabImage {
-            max-width: 100%; 
-            height: auto;
-            display: block;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 5px;
+        @media (max-width: 768px) {
+            #tabsBody {
+                flex-direction: column;
+            }
+            #tabsBody > div {
+                max-width: 100%;
+            }
         }
-    </style>
+    </style> 
 </head>
 <body>
 
@@ -50,27 +129,39 @@
     </div>
 
     <div id="tabsBody">
-        <img id="tabImage" src="./src/asstes/Colossus.jpg" alt="Tab Image">
+        <div>
+            <img id="tabImage" src="./src/assets/Colossus.jpg" alt="Tab Image">
+        </div>
         
-        <div class="tab-body active">Content for Tab 1</div>
-        <div class="tab-body">Content for Tab 2</div>
-        <div class="tab-body">Content for Tab 3</div>
-        <div class="tab-body">Content for Tab 4</div>
+        <div>
+            <div class="tab-body active">Content for Tab 1</div>
+            <div class="tab-body">Content for Tab 2</div>
+            <div class="tab-body">Content for Tab 3</div>
+            <div class="tab-body">Content for Tab 4</div>
+        </div>
     </div>
 
     <script>
-        const tabs = document.querySelectorAll(".tab-head");
-        const contents = document.querySelectorAll(".tab-body");
-        const tabImage = document.getElementById("tabImage");
-        const images = ["./src/asstes/Colossus.jpg", "./src/asstes/thing.jpg", "./src/asstes/oardefault.jpg", "./src/asstes/oardefault.jpg"];
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll(".tab-head");
+            const contents = document.querySelectorAll(".tab-body");
+            const tabImage = document.getElementById("tabImage");
 
-        tabs.forEach((tab, index) => {
-            tab.addEventListener("click", () => {
-                tabs.forEach(t => t.classList.remove("active"));
-                contents.forEach(c => c.classList.remove("active"));
-                tab.classList.add("active");
-                contents[index].classList.add("active");
-                tabImage.src = images[index];
+            const images = [
+                "./src/asstes/Colossus.jpg",
+                "./src/asstes/oardefault.jpg",
+                "./src/asstes/thing.jpg",
+                "./src/asstes/thing.jpg"
+            ];
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    contents.forEach(c => c.classList.remove("active"));
+                    tab.classList.add("active");
+                    contents[index].classList.add("active");
+                    tabImage.src = images[index];
+                });
             });
         });
     </script>
