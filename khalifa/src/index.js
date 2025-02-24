@@ -39,6 +39,20 @@ fetch("src/data.json")
                 <p><strong>Hadith:</strong> ${hadithContent}</p>
             `;
 
+            // Optimized Styling
+            Object.assign(tabBody.style, {
+                padding: "24px",
+                border: "1px solid #ddd",
+                borderRadius: "10px",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 5px 10px rgba(0, 0, 0, 0.15)",
+                fontFamily: "Arial, sans-serif",
+                color: "#222",
+                lineHeight: "1.6",
+                maxWidth: "600px",
+                margin: "20px auto",
+            });
+
             if (index === 0) {
                 tabBody.classList.add("active");
                 if (caliph.image) tabImage.src = caliph.image;
@@ -54,11 +68,7 @@ fetch("src/data.json")
                 tabBody.classList.add("active");
 
                 // Update Image Safely
-                if (caliph.image) {
-                    tabImage.src = caliph.image;
-                } else {
-                    tabImage.src = "default-image.jpg"; // Use a placeholder image if missing
-                }
+                tabImage.src = caliph.image || "default-image.jpg"; // Use placeholder if missing
             });
         });
     })
@@ -72,16 +82,11 @@ function searchTabs() {
 
     tabs.forEach(tab => {
         const tabText = tab.textContent.toLowerCase();
-        if (tabText.includes(input)) {
-            tab.style.display = "block";
-            hasResults = true;
-        } else {
-            tab.style.display = "none";
-        }
+        tab.style.display = tabText.includes(input) ? "block" : "none";
+        if (tabText.includes(input)) hasResults = true;
     });
 
     // Show "No Results" message if no match is found
-    const noResults = document.getElementById("noResults");
     if (noResults) {
         noResults.style.display = hasResults ? "none" : "block";
     }
