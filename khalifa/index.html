@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabs Switching with Image Change</title>
+    <title>Caliphs Information</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             padding: 20px;
         }
-
         #tabsBody {
             display: flex;
             align-items: center;
@@ -24,72 +22,72 @@
             gap: 20px;
             max-width: 900px;
             margin: auto;
+            flex-wrap: wrap;
         }
-
         #tabsBody > div {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        #tabImage {
             width: 100%;
-            max-width: 400px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+        #tabImage {
+    width: 100%;
+    max-width: 350px; /* Adjust for a balanced look */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 15px; /* Softer rounded corners */
+    transition: all 0.3s ease-in-out;
+    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); Better shadow for depth */
+    border: 3px solid #ddd;
+}
+
+
 
         #tabsHead {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
-            border-radius: 20px;
+            border-radius: 15px;
             box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
+            width: 100%;
         }
-
         .tab-head {
-            padding: 12px 20px;
-            border-radius: 20px;
+            padding: 10px 18px;
+            border-radius: 15px;
             background: linear-gradient(145deg, #e0e0e0, #c8c8c8);
             box-shadow: 3px 3px 6px #a8a8a8, -3px -3px 6px #ffffff;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             font-weight: bold;
+            font-size: 14px;
         }
-
         .tab-head:hover, .tab-head.active {
             background: linear-gradient(145deg, #d4d4d4, #b4b4b4);
             box-shadow: inset 3px 3px 6px #a8a8a8, inset -3px -3px 6px #ffffff;
-            transform: translateY(2px);
+            transform: scale(1.1);
         }
-
         .tab-head.active {
             background-color: #1f1616;
             color: white;
         }
-
         .tab-body {
             display: none;
             padding: 20px;
-            border: 1px solid #1f1616;
             border-radius: 8px;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             text-align: center;
+            animation: fadeIn 0.3s ease-in-out;
         }
-
         .tab-body.active {
             display: block;
         }
-
         .content-all {
             display: flex;
             flex-direction: column;
@@ -98,23 +96,50 @@
             background: #e9ecef;
             padding: 20px;
             width: 100%;
+            border-radius: 15px;
         }
-
         @media (max-width: 768px) {
             #tabsBody {
                 flex-direction: column;
                 text-align: center;
             }
-
             #tabsHead {
-                width: 100%;
                 flex-wrap: wrap;
             }
-
+            .tab-head {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
             #tabImage {
                 width: 100%;
                 height: auto;
             }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .scroll-box {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        #searchInput {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -122,50 +147,19 @@
 
     <div id="tabsBody">
         <div>
-            <img id="tabImage" src="./src/assets/Colossus.jpg" alt="Tab Image">
+            <img id="tabImage" src="" alt="Caliph Image">
         </div>
         
         <div class="content-all">
-            <div id="tabsHead">
-                <div class="tab-head active" data-index="0">Tab 1</div>
-                <div class="tab-head" data-index="1">Tab 2</div>
-                <div class="tab-head" data-index="2">Tab 3</div>
-                <div class="tab-head" data-index="3">Tab 4</div>
-                <div class="tab-head" data-index="3">Tab 5</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search tabs..." onkeyup="searchTabs()" />
             </div>
-
-            <div class="tab-body active">Content for Tab 1</div>
-            <div class="tab-body">Content for Tab 2</div>
-            <div class="tab-body">Content for Tab 3</div>
-            <div class="tab-body">Content for Tab 4</div>
-            <div class="tab-body">Content for Tab 5</div>
+            <div id="tabsHead"></div>
+            <div id="tabsContent" class="scroll-box"></div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const tabs = document.querySelectorAll(".tab-head");
-            const contents = document.querySelectorAll(".tab-body");
-            const tabImage = document.getElementById("tabImage");
-
-            const images = [
-                "./src/assets/Colossus.jpg",
-                "./src/assets/oardefault.jpg",
-                "./src/assets/thing.jpg",
-                "./src/assets/thing.jpg"
-            ];
-
-            tabs.forEach((tab, index) => {
-                tab.addEventListener("click", () => {
-                    tabs.forEach(t => t.classList.remove("active"));
-                    contents.forEach(c => c.classList.remove("active"));
-                    tab.classList.add("active");
-                    contents[index].classList.add("active");
-                    tabImage.src = images[index];
-                });
-            });
-        });
-    </script>
+    <script src="./src/index.js"></script>
 
 </body>
 </html>
