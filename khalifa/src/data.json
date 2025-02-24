@@ -267,7 +267,62 @@
               "source": "Sunan al-Tirmidhi, Hadith 3723"
             }
           ]
-        }
+        },
+
+        {
+            "name": {
+              "arabic": "عبد المجيد الثاني",
+              "english": "Abdulmejid II"
+            },
+            "image": "https://upload.wikimedia.org/wikipedia/commons/3/36/Abdulmecid_II_of_the_Ottoman_Empire.jpg",
+            "title": "Last Caliph of Islam (Ottoman Caliphate)",
+            "position": {
+              "role": "Caliph of Islam",
+              "reign": {
+                "start": "19 November 1922",
+                "end": "3 March 1924",
+                "duration": "1 year, 104 days"
+              },
+              "predecessor": "Mehmed VI (as Sultan & Caliph)",
+              "successor": "None (Abolition of the Caliphate)"
+            },
+            "biography": {
+              "birth": {
+                "date": "29 May 1868",
+                "place": "Istanbul, Ottoman Empire"
+              },
+              "death": {
+                "date": "23 August 1944",
+                "age": "76",
+                "place": "Paris, France",
+                "burial": "Medina, Saudi Arabia"
+              }
+            },
+            "family": {
+              "dynasty": "Ottoman Dynasty",
+              "father": "Abdülaziz",
+              "mother": "Hayranidil Kadın",
+              "spouse": [
+                "Şehsuvar Kadın"
+              ],
+              "children": [
+                "Şehzade Ömer Faruk"
+              ]
+            },
+            "religion": "Islam",
+            "notable_contributions": [
+              "Last Ottoman Caliph after the abolition of the Sultanate",
+              "Tried to maintain Islamic unity after the fall of the Ottoman Empire",
+              "Renowned for his artistic works, including paintings and calligraphy"
+            ],
+            "historical_significance": [
+              "Deposed when Mustafa Kemal Atatürk abolished the Caliphate in 1924",
+              "Lived in exile in France after being expelled from Turkey",
+              "His removal marked the end of over 1,300 years of the Caliphate system in Sunni Islam"
+            ]
+          }
+          
+          
       ]
     }
     
