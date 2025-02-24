@@ -5,96 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabs Switching with Image Change</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        #tabsBody {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        #tabsBody > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #tabImage {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         #tabsHead {
             display: flex;
-            justify-content: center;
             gap: 10px;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
+            border-radius: 20px;
+            box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
         }
 
         .tab-head {
+            padding: 12px 20px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #e0e0e0, #c8c8c8);
+            box-shadow: 3px 3px 6px #a8a8a8, -3px -3px 6px #ffffff;
             cursor: pointer;
-            padding: 12px 18px;
-            border: 1px solid #ccc;
-            background-color: #f4f4f4;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
         }
 
-        .tab-head:hover {
-            background-color: #ddd;
+        .tab-head:hover, .tab-head.active {
+            background: linear-gradient(145deg, #d4d4d4, #b4b4b4);
+            box-shadow: inset 3px 3px 6px #a8a8a8, inset -3px -3px 6px #ffffff;
+            transform: translateY(2px);
         }
 
         .tab-head.active {
             background-color: #1f1616;
             color: white;
-            border-color: #1f1616;
         }
-
-
-        #tabImage:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        #tabsBody {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 20px;
-}
-
-#tabsBody > div {
-    flex: 1;
-    min-width: 45%;
-    display: flex;
-    justify-content: center;
-}
-
-#tabImage {
-    width: 100%;
-    max-width: 400px; /* Fixed size */
-    height: 300px; /* Fixed height */
-    object-fit: cover; /* Keeps the aspect ratio */
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.tab-body {
-    display: none;
-    padding: 20px;
-    border: 1px solid #1f1616;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tab-body.active {
-    display: block;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #tabsBody {
-        flex-direction: column;
-    }
-    #tabsBody > div {
-        max-width: 100%;
-    }
-    #tabImage {
-        width: 100%;
-        height: auto;
-    }
-}
-
 
         .tab-body {
             display: none;
@@ -103,37 +82,57 @@
             border-radius: 8px;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
         }
 
         .tab-body.active {
             display: block;
         }
 
+        .content-all {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: #e9ecef;
+            padding: 20px;
+            width: 100%;
+        }
+
         @media (max-width: 768px) {
             #tabsBody {
                 flex-direction: column;
+                text-align: center;
             }
-            #tabsBody > div {
-                max-width: 100%;
+
+            #tabsHead {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            #tabImage {
+                width: 100%;
+                height: auto;
             }
         }
-    </style> 
+    </style>
 </head>
 <body>
-
-    <div id="tabsHead">
-        <div class="tab-head active" data-index="0">Tab 1</div>
-        <div class="tab-head" data-index="1">Tab 2</div>
-        <div class="tab-head" data-index="2">Tab 3</div>
-        <div class="tab-head" data-index="3">Tab 4</div>
-    </div>
 
     <div id="tabsBody">
         <div>
             <img id="tabImage" src="./src/assets/Colossus.jpg" alt="Tab Image">
         </div>
         
-        <div>
+        <div class="content-all">
+            <div id="tabsHead">
+                <div class="tab-head active" data-index="0">Tab 1</div>
+                <div class="tab-head" data-index="1">Tab 2</div>
+                <div class="tab-head" data-index="2">Tab 3</div>
+                <div class="tab-head" data-index="3">Tab 4</div>
+            </div>
+
             <div class="tab-body active">Content for Tab 1</div>
             <div class="tab-body">Content for Tab 2</div>
             <div class="tab-body">Content for Tab 3</div>
@@ -148,10 +147,10 @@
             const tabImage = document.getElementById("tabImage");
 
             const images = [
-                "./src/asstes/Colossus.jpg",
-                "./src/asstes/oardefault.jpg",
-                "./src/asstes/thing.jpg",
-                "./src/asstes/thing.jpg"
+                "./src/assets/Colossus.jpg",
+                "./src/assets/oardefault.jpg",
+                "./src/assets/thing.jpg",
+                "./src/assets/thing.jpg"
             ];
 
             tabs.forEach((tab, index) => {
