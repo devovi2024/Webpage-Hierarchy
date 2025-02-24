@@ -1,0 +1,85 @@
+class CaliphTabs {
+    constructor(dataUrl) {
+        this.dataUrl = dataUrl;
+        this.tabsHead = document.getElementById("tabsHead");
+        this.tabsContent = document.getElementById("tabsContent");
+        this.tabImage = document.getElementById("tabImage");
+
+        this.init();
+    }
+
+    // Initialize the application
+    async init() {
+        try {
+            const caliphs = await this.fetchData();
+            this.renderTabs(caliphs);
+        } catch (error) {
+            console.error("Error loading JSON data:", error);
+        }
+    }
+
+    // Fetch data using async/await
+    async fetchData() {
+        const response = await fetch(this.dataUrl);
+        const data = await response.json();
+        return data.caliphs;
+    }
+
+    // Render Tabs
+    renderTabs(caliphs) {
+        caliphs.forEach((caliph, index) => {
+            const tabHead = this.createTabHead(caliph, index);
+            const tabBody = this.createTabBody(caliph, index);
+            
+            this.tabsHead.appendChild(tabHead);
+            this.tabsContent.appendChild(tabBody);
+
+            if (index === 0) {
+                this.setActiveTab(tabHead, tabBody, caliph.image);
+            }
+
+            tabHead.addEventListener("click", () => this.setActiveTab(tabHead, tabBody, caliph.image));
+        });
+    }
+
+    // Create Tab Head
+    createTabHead(caliph, index) {
+        const tabHead = document.createElement("div");
+        tabHead.classList.add("tab-head");
+        tabHead.textContent = caliph.name.english;
+        tabHead.dataset.index = index;
+        if (index === 0) tabHead.classList.add("active");
+        return tabHead;
+    }
+
+    // Create Tab Body
+    createTabBody(caliph, index) {
+        const tabBody = document.createElement("div");
+        tabBody.classList.add("tab-body");
+        tabBody.innerHTML = `
+            <h2>${caliph.name.english} (${caliph.name.arabic})</h2>
+            <p><strong>Title:</strong> ${caliph.title}</p>
+            <p><strong>Role:</strong> ${caliph.position.role}</p>
+            <p><strong>Reign:</strong> ${caliph.position.reign.start} - ${caliph.position.reign.end}</p>
+            <p><strong>Notable Contributions:</strong> ${caliph.notable_contributions.join(", ")}</p>
+            <p><strong>Hadith:</strong> "${caliph.hadith[0]?.narration || "N/A"}" - ${caliph.hadith[0]?.source || "Unknown"}</p>
+        `;
+        if (index === 0) tabBody.classList.add("active");
+        return tabBody;
+    }
+
+    // Set Active Tab
+    setActiveTab(tabHead, tabBody, imageSrc) {
+        document.querySelectorAll(".tab-head").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-body").forEach(c => c.classList.remove("active"));
+
+        tabHead.classList.add("active");
+        tabBody.classList.add("active");
+        this.tabImage.src = imageSrc;
+    }
+}
+
+// Initialize the Tabs System on Page Load
+document.addEventListener("DOMContentLoaded", () => {
+    new CaliphTabs("src/data.json");
+});
